@@ -155,8 +155,7 @@ module Scan
               potential_emptiness_error = lambda do |sims|
                 if sims.empty?
                   unless Scan.config[:ensure_device_found]
-                    UI.error("No simulators found that are equal to the version " \
-                    "of specifier (#{version})")
+                    UI.error("No simulator found: #{device_string}")
                     UI.test_failure!("Test execution failed. No device found - see the log above")
                   end
                   UI.error("No simulators found that are equal to the version " \
