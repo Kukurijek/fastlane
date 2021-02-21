@@ -69,6 +69,11 @@ module Scan
                                      default_value: false,
                                      type: Boolean,
                                      optional: true),
+        FastlaneCore::ConfigItem.new(key: :ensure_device_found,
+                                     description: "Should enforce using of specified devices",
+                                     default_value: false,
+                                     type: Boolean,
+                                     optional: true),
 
         # simulator management
         FastlaneCore::ConfigItem.new(key: :force_quit_simulator,
