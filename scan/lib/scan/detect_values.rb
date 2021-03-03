@@ -154,6 +154,9 @@ module Scan
               version = pieces[1].tr('()', '')
               potential_emptiness_error = lambda do |sims|
                 if sims.empty?
+                  unless Scan.config[:ensure_devices_found]
+                    UI.test.failure!("No '#{device_string}' found")
+                  end
                   UI.error("No simulators found that are equal to the version " \
                   "of specifier (#{version}) and greater than or equal to the version " \
                   "of deployment target (#{deployment_target_version})")
@@ -162,6 +165,9 @@ module Scan
               filter_simulators(simulators, :equal, version).tap(&potential_emptiness_error).select(&selector)
             end
           ).tap do |array|
+            unless Scan.config[:ensure_devices_found]
+              UI.test.failure!("No '#{device_string}' found") if array.empty?
+            end
             UI.error("Ignoring '#{device_string}', couldn’t find matching simulator") if array.empty?
           end
         end
